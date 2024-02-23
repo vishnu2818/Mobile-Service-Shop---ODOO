@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="mobile_service_shop_tree">
+            <field name="name">view.mobile.service.shop.tree</field>
+            <field name="model">mobile.service.shop</field>
+            <field name="arch" type="xml">
+                <tree string= 'Shop Customer Mobile Details'>
+                    <field name="customer_id"/>
+                    <field name="mobile_os_type"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="mobile_service_shop_form">
+            <field name="name">view.mobile.service.shop.form</field>
+            <field name="model">mobile.service.shop</field>
+            <field name="arch" type="xml">
+                <form string="Mobile Service Shop">
+                    <sheet>                
+                        <group>
+                            <field name="customer_id"/>
+                            <field name="mobile_os_type"/>
+                        <!-- <field name="mobile_complaint_description"/> -->
+                        <!-- <field name="mobile_service_line_ids"/> -->
+                        <!-- <field name="damaged_spare_parts_ids" />  widget='many2many_tags' --> -->
+                        <!-- <field name="total"/> -->
+                        <!-- <field name="state"/> -->
+                        <!-- <field name="company_id" invisible="1"/> -->
+                        <!-- <field name="user_id" invisible="1"/> -->
+                        <!-- <field name="simple_q_web_report"/> -->
+                        </group>
+                            <notebook>
+                                <page string="Mobile Service Line">
+                                    <field name="mobile_service_line_ids">
+                                        <tree editable="bottom">
+                                            <field name="product"/>
+                                            <field name="qty"/>
+                                            <field name="unit_price"/>
+                                            <field name="subtotal" readonly="1"/>
+                                        </tree>
+                                    </field>
+                                </page>
+                            </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        
+<!-- menu Action -->
+        <record id="action_mobile_shop" model="ir.actions.act_window">
+            <field name="name">Customers</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">mobile.service.shop</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p>Create Your First Customer Details!!</p>
+            </field>
+        </record>
+
+        <!-- Menu -->
+        <menuitem id = "menu_service_shop" name = "Mobile Service Shop" sequence = "10" />
+
+        <menuitem id = "menu_shop_form" name = "Mobile Service Shop" parent = "menu_service_shop" action = "action_mobile_shop" 
+            sequence = "1"/>
+    </data>
+</odoo>
+
+
+
+    
+
+
+    <!-- server action to the one above -->
+<!--
+    <record model="ir.actions.server" id="mobile_service_shop.action_server">
+      <field name="name">mobile_service_shop server</field>
+      <field name="model_id" ref="model_mobile_service_shop_mobile_service_shop"/>
+      <field name="state">code</field>
+      <field name="code">
+        action = {
+          "type": "ir.actions.act_window",
+          "view_mode": "tree,form",
+          "res_model": model._name,
+        }
+      </field>
+    </record>
+-->
+
+    <!-- Top menu item -->
+<!--
+    <menuitem name="mobile_service_shop" id="mobile_service_shop.menu_root"/>
+-->
+    <!-- menu categories -->
+<!--
+    <menuitem name="Menu 1" id="mobile_service_shop.menu_1" parent="mobile_service_shop.menu_root"/>
+    <menuitem name="Menu 2" id="mobile_service_shop.menu_2" parent="mobile_service_shop.menu_root"/>
+-->
+    <!-- actions -->
+<!--
+    <menuitem name="List" id="mobile_service_shop.menu_1_list" parent="mobile_service_shop.menu_1"
+              action="mobile_service_shop.action_window"/>
+    <menuitem name="Server to list" id="mobile_service_shop" parent="mobile_service_shop.menu_2"
+              action="mobile_service_shop.action_server"/>
+-->
