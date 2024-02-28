@@ -17,13 +17,11 @@ Mobile service shop module should have following field.
 7.Damaged spare parts --> Many2many eg-->Display,speaker.
 8.Simple q web report --> Mobile service slip
 9.State should need to add --> draft,confirm,cancel.
-
 10. Company  and user field need to get current company and user.
 
 TASK-2
 1. Add confirm button in your form, Sequence should be generate after confirmation. eg-->(Mob0001)
 2. Graph,Pivot,Calendar,search view to be added.
-
 3. Add a related field  phone of customer in sale order. --> Study related field attributes in Odoo technical documentation(Place a field below customer field).
 4. In Mobile service customized module, Delete can be done only in draft state.
 5. Python date conversion --> date-time to string etc... --> Refer w3 school.
@@ -39,3 +37,12 @@ TASK-3
     4.1 --> sales User can create Mobile service form.
     4.2 --> Sales manager need to Approve Mobile service form before confirm.
     (Create a new user call sales person and Sales Manager --> Refer odoo functional documentation.)
+
+TASK-4
+1.Inherit the Sale Order Add a new field call vat below payment terms.Value for Vat will be update from customer master while on changing the customer.
+2.Add a Validation warning in Sale order confirm button.Warning need to raise when the  total amount is greater than 10000.
+3.In Quotation state , Expiration date should not allow past date, kindly add a validation.
+
+TASK-5
+1. Add print button in mobile shop form.
+2. PDF format - Sale Order > Print > Quotation.
