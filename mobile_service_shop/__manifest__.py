@@ -11,10 +11,16 @@
     'depends': ['base','sale','product'],
     'data': [
             'security/ir.model.access.csv',
+            'report/reports.xml',
+            'report/mobile_shop_template.xml',
             'data/shop_sequence.xml',
-            'views/app_view.xml'
+            'views/app_view.xml',
+            'views/sale_order.xml'
             ],
-    'images': ['static/description/icon.png'],
+    'images': [
+            'static/description/icon.png',
+            'static/description/logo.png'
+    ],
     'installable': True,
     'application': True,
     'auto_install': False

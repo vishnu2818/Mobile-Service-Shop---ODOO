@@ -8,13 +8,24 @@
             <field name="arch" type="xml">
                 <form>
                     <header>
+                        <!-- Ask For Approvel Button -->
+                        <button name="action_wfa" string="Ask For Approvel" states='draft,reject,cancel' type="object" class="oe_highlight"/>
+
+                        <!-- Approved Button ......-->
+                        <button name="action_approved" string="Approve" states = 'waiting_for_approvel' type="object" class="oe_highlight"/>
+
+                        <!-- Reset to Draft Button -->
+                        <button name="action_draft" string="Reset to Draft" states='cancel'  type="object" class="oe_highlight"/>
+
+                        <!-- Rejected Button -->
+                        <button name="action_rejected" string="Reject" states = 'waiting_for_approvel' type="object" class="oe_highlight"/>
+
                         <!-- Confirm Button -->
-                        <button name="action_confirm" string="Confirm" states='draft' confirm='Do You Want Move This To Confirm State!!'
-                            type="object" class="oe_highlight"/>
-                        <!-- Draft Button -->
-                        <button name="action_draft" string="Set to Draft" states='confirm,cancel'  type="object" class="oe_highlight"/>
+                        <button name="action_confirm" string="Confirm" states = 'approve' type="object" class="oe_highlight"/>
+
                         <!-- Cancel Button -->
-                        <button name="action_cancel" string="Cancel" states = 'confirm,draft' type="object"/>
+                        <button name="action_cancel" string="Cancel" states = 'done' type="object"/>
+
                         <field name="state" widget="statusbar"/>
                     </header>
                     <sheet> 
@@ -24,12 +35,12 @@
                             </h1>   
                         </div>         
                         <group>
-                         <!-- Left Side Column -->
+                         <!-- Left Side Column  edit="1" create="1" / options="{'no_create': True, 'no_create_edit':True}" />-->
                             <group>
-                                <field name="customer_id" string = 'Name' required ='1'/>
+                                <field name="customer_id" string = 'Name' required ='1' options="{'no_create': True}"/>
                                 <field name="customer_phone" string='Customer Phone'/>
                                 <field name="mobile_os_type" string='OS Type' required ='1'/>
-                                <field name="company_id" string = 'Mobile Brand'/>
+                                <field name="company_id" string = 'Mobile Brand' options="{'no_create': True }"/>
                             </group>
                             <!-- Right Side Column -->
                             <group>
@@ -38,8 +49,8 @@
                             </group>
                         </group>
                         <group>
-                            <!-- <notebook> -->
-                                <!-- <page string="Service Details"> -->
+                            <notebook>
+                                <page string="Service Details">
                                     <field name="mobile_service_line_ids">
                                         <tree editable="bottom">
                                             <field name="product_id"/>
@@ -49,14 +60,16 @@
                                             <field name="subtotal"/>
                                         </tree>
                                     </field>
-                                <!-- </page> -->
-                            <!-- </notebook> -->
+                                </page>
+                            </notebook>
                         </group>
-                        <group colspan="4">
+                        <group>
+                            <group></group>
                             <group>
-                            </group>
-                            <group>
-                                <field name="total"/>
+                                <group></group>
+                                <group>
+                                    <field name="total"/>
+                                </group>
                             </group>
                         </group>
                     </sheet>
@@ -181,7 +194,6 @@
 
         <!-- Damaged Parts Action -->
         <menuitem action="action_spare_parts" id='spareparts' name='Damaged Parts' parent="base_menu_mobile" sequence="2"/>
-
     </data>
 </odoo>
 

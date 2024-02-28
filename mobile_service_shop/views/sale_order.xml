@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+         <!-- Custom .....Sale Order Tree View -->
+        <record id="view_sale_order_tree_inherited" model="ir.ui.view">
+            <field name="name">sale.order.tree.inherited</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_tree"/>
+            <field name="arch" type="xml">
+                <field name='user_id' position="after">
+                    <field name="vat"/>
+                </field>
+            </field>
+        </record>
+
+         <!-- Custom .....Sale Order Form View-->
+        <record id="view_sale_order_form_inherited" model="ir.ui.view">
+            <field name="name">sale.order.form.inherited</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                
+                <field name='payment_term_id' position="after">
+                    <field name="vat"/>
+                </field>
+            </field>
+        </record>
+    </data>
+</odoo>
+
+
+              <!--   <xpath expr="//field[@name='partner_id']" position="after">
+                    <field name="vat"/>
+                </xpath>
+                -->

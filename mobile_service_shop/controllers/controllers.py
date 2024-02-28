@@ -1,5 +1,18 @@
 # -*- coding: utf-8 -*-
 # from odoo import http
+# from odoo.http import request
+
+# class MobileShopController(http.Controller):
+
+#     @http.route('/path/to/route', type='http', auth='user')
+#     def some_controller_method(self, **kwargs):
+#         docs = request.env['mobile.service.shop'].search([])
+#         return http.request.render('mobile_service_shop.report_customer_details', {'docs': docs})
+
+
+
+
+
 
 
 # class MobileServiceShop(http.Controller):
