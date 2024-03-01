@@ -46,3 +46,10 @@ TASK-4
 TASK-5
 1. Add print button in mobile shop form.
 2. PDF format - Sale Order > Print > Quotation.
+
+TASK-6
+---->Approval Mechanism:
+1. Sales User can create Mobile service form.
+2. Before confirm the Mobile service form need to sent for approval.
+3. Sales manager need to Approve Mobile service form before confirm.(Create a new user call sales person and Sales Manager --> Refer odoo functional documentation.)
+4. Remove quick create and quick view option for many2one fields.
