@@ -19,17 +19,39 @@
             <field name="model">sale.order</field>
             <field name="inherit_id" ref="sale.view_order_form"/>
             <field name="arch" type="xml">
-                
+                <!-- Add your custom button -->
+                 <xpath expr="//header" position="inside">
+                    <button name="global_discount_btn" string = "Global Discount" class ='oe_highlight' type="object" />
+                </xpath> 
                 <field name='payment_term_id' position="after">
                     <field name="vat"/>
                 </field>
+                <field name='partner_invoice_id' position="after">
+                    <field name="global_discount"/>
+                </field>
+                <!-- <field name='price_unit' position="after"> -->
+                    <!-- <field name="discount"/> -->
+                <!-- </field> -->
             </field>
         </record>
+
+        <!-- Custom .....Sale Order Form View relaton field-->
+       <record id="view_sale_order_line_form_inherited" model="ir.ui.view">
+            <field name="name">sale.order.line.form.inherited</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='order_line']/tree/field[@name='price_unit']" position="after">
+                    <field name="discount"/>
+                </xpath>
+            </field>
+        </record>
+
     </data>
 </odoo>
 
 
-              <!--   <xpath expr="//field[@name='partner_id']" position="after">
+                <!-- <xpath expr="//field[@name='partner_id']" position="after">
                     <field name="vat"/>
-                </xpath>
-                -->
+                </xpath> -->
+               

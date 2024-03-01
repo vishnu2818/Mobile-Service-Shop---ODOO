@@ -136,7 +136,7 @@ class MobileServiceLine(models.Model):
 class DamagedSpareParts(models.Model):
     _name = 'spare.parts'
     _description = 'mobile damaged parts'
-    _rec_name = 'damaged_spare_parts_name'
+    _rec_name = 'damaged_spare_parts_name' #for appear the name
 
     damaged_spare_parts_name = fields.Char(string = 'Damaged SpareParts')
 
@@ -144,11 +144,10 @@ class SaleOrder(models.Model):
     _inherit = "sale.order"
 
     vat = fields.Char(string ='Vat', related = 'partner_id.vat')
+    global_discount = fields.Float(string="Global Discount")
 
-    # @api.onchange('partner_id')
-    # def onchange_partner_id(self):
-    #     if self.partner_id:
-    #         self.vat = self.partner_id.vat or ''
+    def global_discount_btn(self):
+        self.order_line.update_discount(self.global_discount)
         
     @api.constrains('amount_total')
     def action_confirm(self):
@@ -162,6 +161,14 @@ class SaleOrder(models.Model):
         if self.validity_date:
             if self.validity_date < current_date:
                 raise ValidationError("Expiration Date in Past...! ")
+
+class SaleOrderLine(models.Model):
+    _inherit = 'sale.order.line'
+
+    discount = fields.Float(string = 'Discount') #, related = 'order_id.global_discount'
+
+    def update_discount(self, discount):
+        self.write({'discount': discount})
 
 # class RejectWizard(models.TransientModel):
 #     _name = 'reject.wizard'
