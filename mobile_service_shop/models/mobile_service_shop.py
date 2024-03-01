@@ -11,7 +11,7 @@ class MobileServiceShop(models.Model):
     _description = 'All Types of Mobiles Service Here!!'
     _rec_name = 'customer_id'
 
-    sequence = fields.Char(default='New', readonly=True, states={'draft': [('readonly', False)]})
+    sequence = fields.Char(default='New', readonly=True)
     #Many2one end wid _id
     customer_id = fields.Many2one('res.partner', readonly=True, states={'draft': [('readonly', False)]}) #comodel_name='res.partner', help = "Shop Customer field"
     customer_phone = fields.Char(related='customer_id.phone', readonly=True)
@@ -24,15 +24,15 @@ class MobileServiceShop(models.Model):
     # many@many Field......
     damaged_spare_parts_ids = fields.Many2many('spare.parts', readonly=True, states={'draft': [('readonly', False)]})
     total = fields.Float(string = 'Total', compute='calculate_total', readonly=True)
+    state = fields.Selection([('draft', 'Draft'), ('waiting_for_approvel', 'Waiting For Approvel'), ('approve', 'Approved'), ('reject', 'Rejected'), ('done', 'Done'),('cancel', 'Cancelled')], string='State', default='draft')
+    current_user = fields.Char(string = 'Current User',readonly=True)
+    reason = fields.Char(string = "Reason", readonly = True)
 
     @api.depends('mobile_service_line_ids.subtotal')
     def calculate_total(self):
         for v in self:
             v.total = sum(s.subtotal for s in v.mobile_service_line_ids)
 
-    state = fields.Selection([('draft', 'Draft'), ('waiting_for_approvel', 'Waiting For Approvel'), ('approve', 'Approved'), ('reject', 'Rejected'), ('done', 'Done'),('cancel', 'Cancelled')], string='State', default='draft')
-
-    @api.constrains('mobile_service_line_ids.product_id')
     def action_wfa(self):
         self.state = 'waiting_for_approvel'          #'waiting_for_approvel_clicked' : True ----- or self.write({'state': 'waiting_for_approvel'})
         if not self.mobile_service_line_ids:
@@ -51,6 +51,14 @@ class MobileServiceShop(models.Model):
 
     def action_rejected(self):
         self.state = 'reject'
+        return {
+            'name': ('Reject Service'),
+            'type': 'ir.actions.act_window',
+            'view_mode': 'form',
+            'res_model': 'reject.wizard',
+            'target': 'new',
+            'context': {'active_id': self.id}
+        }
 
     def action_done(self):
         self.state = 'done'
@@ -65,6 +73,20 @@ class MobileServiceShop(models.Model):
         if 'mobile_service_line_ids' in vals and not vals['mobile_service_line_ids']: #or vals.get("fieldName")
             raise Warning("No product selected! Please choose a product.")
         return super(MobileServiceShop, self).create(vals)
+
+    @api.onchange('customer_id')
+    def get_current_user(self):
+        # user_id = self.env.uid
+        self.current_user = self.env['res.users'].browse(self.env.uid).name
+        # current_user_group = self.env['res.groups'].search([('name', '=', 'MobileShop / Manager')])
+        # if 'MobileShop / User' in self.env.user.groups_id.mapped('name'):
+        #     self.current_user = "MobileShop / User"
+
+
+        # if self.env.user.name in current_user_group:
+        #     self.current_user = self.env.user.name
+        # else:
+        #     self.current_user="other Group"
 
     # @api.model
     # def unlink(self):
@@ -140,6 +162,19 @@ class SaleOrder(models.Model):
         if self.validity_date:
             if self.validity_date < current_date:
                 raise ValidationError("Expiration Date in Past...! ")
+
+# class RejectWizard(models.TransientModel):
+#     _name = 'reject.wizard'
+#     _description = "Reject Wizard"
+
+#     reason = fields.Text(string='Reason')
+
+#     def action_confirm_reject(self):
+#         active_id = self.env.context.get('active_id')
+#         if active_id:
+#             service_record = self.env['mobile.service.shop'].browse(active_id)
+#             service_record.action_rejected(self.reason)
+#         return {'type': 'ir.actions.act_window_close'}
 
 # class ReportMobileServiceOrder(models.AbstractModel):
 #     _name = 'mobile.service.shop.document'

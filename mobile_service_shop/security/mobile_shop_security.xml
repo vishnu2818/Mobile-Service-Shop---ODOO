@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- category -->
+        <record id="module_mobile_shop_category" model="ir.module.category">
+            <field name="name">Mobile Service Shop</field>
+            <field name="sequence">0</field>
+            <field name="description">Mobile Service Shop</field>
+        </record>
+
+        <!-- group-1 -->
+        <record id="group_mobile_shop_user" model="res.groups">
+            <field name="name">MobileShop / User</field>
+            <field name="category_id" ref="module_mobile_shop_category"/>
+        </record>
+        <!-- group-2 -->
+        <record id="group_mobile_shop_manager" model="res.groups">
+            <field name="name">MobileShop / Manager</field>
+            <field name="category_id" ref="module_mobile_shop_category"/>
+        </record>
+    </data>
+</odoo>
+
+
+
+
+
+
+
+
+
+<!-- Optionally, set category for better organization in settings -->
+        <!-- <field name="category_id" ref="base.module_category_sales_management"/> -->
+        <!-- List of comma-separated XML IDs of the menu items that this group can access -->
+        <!-- <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/> -->
+        <!-- List of comma-separated XML IDs of access rights that this group has -->
+        <!-- <field name="users" eval="[(4, ref('base.user_root'))]"/> -->

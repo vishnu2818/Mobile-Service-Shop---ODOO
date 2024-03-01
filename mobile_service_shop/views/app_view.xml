@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data>
-        <!-- form view -->
+        <!-- form view  groups="mobile_service_shop.group_mobile_shop_user"-->
         <record model="ir.ui.view" id="mobile_service_form">
             <field name="name">mobile_service.shop.form</field>
             <field name="model">mobile.service.shop</field>
@@ -12,13 +12,13 @@
                         <button name="action_wfa" string="Ask For Approvel" states='draft,reject,cancel' type="object" class="oe_highlight"/>
 
                         <!-- Approved Button ......-->
-                        <button name="action_approved" string="Approve" states = 'waiting_for_approvel' type="object" class="oe_highlight"/>
+                        <button name="action_approved" string="Approve" states = 'waiting_for_approvel' groups="mobile_service_shop.group_mobile_shop_manager" type="object" class="oe_highlight"/>
 
                         <!-- Reset to Draft Button -->
                         <button name="action_draft" string="Reset to Draft" states='cancel'  type="object" class="oe_highlight"/>
 
                         <!-- Rejected Button -->
-                        <button name="action_rejected" string="Reject" states = 'waiting_for_approvel' type="object" class="oe_highlight"/>
+                        <button name="action_rejected" string="Reject" states = 'waiting_for_approvel' groups="mobile_service_shop.group_mobile_shop_manager" type="object" class="oe_highlight"/>
 
                         <!-- Confirm Button -->
                         <button name="action_confirm" string="Confirm" states = 'approve' type="object" class="oe_highlight"/>
@@ -30,13 +30,15 @@
                     </header>
                     <sheet> 
                         <div class="oe_title">
-                            <h1>
+                            <h1> 
                                 <field name="sequence" string='Shop Sequence' readonly="1"/>
                             </h1>   
                         </div>         
                         <group>
+
                          <!-- Left Side Column  edit="1" create="1" / options="{'no_create': True, 'no_create_edit':True}" />-->
                             <group>
+                                <field name="current_user"/>
                                 <field name="customer_id" string = 'Name' required ='1' options="{'no_create': True}"/>
                                 <field name="customer_phone" string='Customer Phone'/>
                                 <field name="mobile_os_type" string='OS Type' required ='1'/>
@@ -46,6 +48,7 @@
                             <group>
                                 <field name="mobile_complaint_description" string = 'Complaint Description'/>
                                 <field name="damaged_spare_parts_ids" string = 'Damaged Parts' widget="many2many_tags"/>
+                                <field name="reason" states = 'reject'/>
                             </group>
                         </group>
                         <group>

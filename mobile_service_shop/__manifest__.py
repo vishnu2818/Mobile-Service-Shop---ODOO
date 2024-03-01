@@ -8,14 +8,16 @@
     'website': "https://github.com/vishnu2818",
     'category': 'Service',
     'version': '14.0.0.0.0',
-    'depends': ['base','sale','product'],
+    'depends': ['base','sale'],
     'data': [
             'security/ir.model.access.csv',
+            'security/mobile_shop_security.xml',
             'report/reports.xml',
             'report/mobile_shop_template.xml',
             'data/shop_sequence.xml',
             'views/app_view.xml',
-            'views/sale_order.xml'
+            'views/sale_order.xml',
+            'wizard/mobile_shop_wizard.xml'
             ],
     'images': [
             'static/description/icon.png',
