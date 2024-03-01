@@ -53,3 +53,8 @@ TASK-6
 2. Before confirm the Mobile service form need to sent for approval.
 3. Sales manager need to Approve Mobile service form before confirm.(Create a new user call sales person and Sales Manager --> Refer odoo functional documentation.)
 4. Remove quick create and quick view option for many2one fields.
+
+TASK-7
+1. Add a new field as "discount" in the sales order line item.
+2. Add a new button in sales order form like "Global Disc %". And add a global discount field in the sale order.
+While clicking the button load the given discount value in the sale line item discount field.
